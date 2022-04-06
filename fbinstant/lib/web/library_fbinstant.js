@@ -561,8 +561,14 @@ var FBInstantLibrary = {
     // =====================================
     FBInstant_PlatformLogEvent: function(ceventName, valueToSum, cparametersJson) {
         var eventName =  UTF8ToString(ceventName);
-        var parametersJson =  UTF8ToString(cparametersJson);
-        var parameters = JSON.parse(parametersJson);
+        var parametersJson =  UTF8ToString(cparametersJson);        
+        console.log('FBInstant_PlatformLogEvent - ' + eventName + '. [' + parametersJson + ']');
+        var parameters;
+        if (parametersJson == null || parametersJson == "") {
+            parameters = {}
+        } else {
+            parameters = JSON.parse(cparametersJson);
+        }
         var logged = FBInstant.logEvent(eventName, valueToSum, parameters);
         if (logged != null) {
             console.log("FBInstant_PlatformLogEvent - error: " + String(logged.code) + " " + String(logged.message));
